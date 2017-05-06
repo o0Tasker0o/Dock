@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -20,10 +21,7 @@ namespace Dock
 
 		protected override void OnInitialized(EventArgs e)
 		{
-			AddButton("::{20d04fe0-3aea-1069-a2d8-08002b30309d}");
-			AddButton("C:");
-			AddButton(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe");
-			AddButton(@"C:\Program Files (x86)\Mozilla Firefox\firefox.exe");
+			AddShortcuts();
 
 			Width = DockPanel.Width;
 
@@ -32,6 +30,16 @@ namespace Dock
 			Top = -64;
 
 			base.OnInitialized(e);
+		}
+
+		private void AddShortcuts()
+		{
+			var fileContents = File.ReadAllText("./shortcuts.txt");
+
+			foreach (var shortcut in fileContents.Split(new [] { Environment.NewLine }, StringSplitOptions.None))
+			{
+				AddButton(shortcut);
+			}
 		}
 
 		private void AddButton(string shortcut)
