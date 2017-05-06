@@ -49,9 +49,8 @@ namespace Dock
 					}
 				}
 			}
-			catch (FileNotFoundException)
+			catch (Exception)
 			{
-
 			}
 
 			var newBtn = new Button
@@ -60,7 +59,7 @@ namespace Dock
 				Background = Brushes.Transparent,
 				Content = new Image
 				{
-					Source = shortcutImage
+					Source = shortcutImage ?? Icon
 				},
 				CommandParameter = shortcut,
 				Width = 64
