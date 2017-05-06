@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="DockWindow" Height="65" Width="64" AllowsTransparency="True" Background="#22CCDDFF" WindowStyle="None" WindowStartupLocation="Manual" Icon="Images/placeholder.png" ShowInTaskbar="false">
+        Title="DockWindow" Height="65" Width="64" AllowsTransparency="True" Background="Transparent" WindowStyle="None" WindowStartupLocation="Manual" Icon="Images/placeholder.png" ShowInTaskbar="false">
 	<Window.Resources>
 		<Style x:Key="NoChromeButton" TargetType="{x:Type Button}">
 			<Setter Property="Background" Value="Transparent"/>
@@ -24,12 +24,14 @@
 			</Setter>
 		</Style>
 	</Window.Resources>
-	<Grid Background="Transparent">
-		<Grid.ContextMenu>
-			<ContextMenu>
-				<MenuItem Header="_Exit" Click="ExitMenuClick"/>
-			</ContextMenu>
-		</Grid.ContextMenu>
-		<StackPanel x:Name="DockPanel" Orientation="Horizontal" Width="0" Background="Transparent"></StackPanel>
-	</Grid>
+	<Border Background="#22CCDDFF" CornerRadius="5,5,5,5">
+		<Grid Background="Transparent">
+			<Grid.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="_Exit" Click="ExitMenuClick"/>
+				</ContextMenu>
+			</Grid.ContextMenu>
+			<StackPanel x:Name="DockPanel" Orientation="Horizontal" Width="0" Background="Transparent"></StackPanel>
+		</Grid>
+	</Border>
 </Window>

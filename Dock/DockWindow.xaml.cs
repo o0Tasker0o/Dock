@@ -65,7 +65,8 @@ namespace Dock
 					Source = shortcutImage ?? Icon
 				},
 				CommandParameter = shortcut,
-				Width = 64
+				Width = 64,
+				Padding = new Thickness(4,4,4,4)
 			};
 
 			newBtn.Click += ShortcutClicked;
