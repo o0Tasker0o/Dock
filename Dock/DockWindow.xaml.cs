@@ -43,5 +43,10 @@ namespace Dock
 
 			base.OnDeactivated(e);
 		}
+
+		private void ShortcutClicked(object sender, RoutedEventArgs e)
+		{
+			System.Diagnostics.Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe");
+		}
 	}
 }

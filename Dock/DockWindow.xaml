@@ -6,6 +6,6 @@
         mc:Ignorable="d"
         Title="DockWindow" Height="65" Width="64" AllowsTransparency="True" Background="#22CCDDFF" WindowStyle="None" WindowStartupLocation="Manual">
 	<Grid>
-		<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold">Dock</TextBlock>
+		<Button x:Name="ShortcutButton" Click="ShortcutClicked">Chrome</Button>
 	</Grid>
 </Window>
