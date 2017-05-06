@@ -75,12 +75,16 @@ namespace Dock
 
 		private void ButtonMouseLeave(object sender, MouseEventArgs e)
 		{
-			((DropShadowEffect) ((Image) ((Button) sender).Content).Effect).Opacity = 0.0;
+			var button = (Button) sender;
+			button.Padding = new Thickness(4, 4, 4, 4);
+			((DropShadowEffect) ((Image) button.Content).Effect).Opacity = 0.0;
 		}
 
 		private void ButtonMouseEnter(object sender, MouseEventArgs e)
 		{
-			((DropShadowEffect)((Image)((Button)sender).Content).Effect).Opacity = 0.2;
+			var button = (Button) sender;
+			button.Padding = new Thickness(0, 0, 0, 0);
+			((DropShadowEffect) ((Image) button.Content).Effect).Opacity = 0.2;
 		}
 
 		protected override void OnMouseEnter(MouseEventArgs e)
