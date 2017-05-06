@@ -1,9 +1,8 @@
 ﻿using System;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
+using System.Windows.Media;
 using Brushes = System.Windows.Media.Brushes;
 
 namespace Dock
@@ -36,25 +35,7 @@ namespace Dock
 
 		private void AddButton(string shortcut)
 		{
-			BitmapFrame shortcutImage = null;
-
-			try
-			{
-				var icon = System.Drawing.Icon.ExtractAssociatedIcon(shortcut);
-
-				if (icon != null)
-				{
-					using (var bmp = icon.ToBitmap())
-					{
-						var stream = new MemoryStream();
-						bmp.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-						shortcutImage = BitmapFrame.Create(stream);
-					}
-				}
-			}
-			catch (Exception)
-			{
-			}
+			var icon = IconGetter.GetLargeIcon(shortcut);
 
 			var newBtn = new Button
 			{
@@ -62,13 +43,13 @@ namespace Dock
 				Background = Brushes.Transparent,
 				Content = new Image
 				{
-					Source = shortcutImage ?? Icon
+					Source = icon ?? Icon
 				},
 				CommandParameter = shortcut,
 				Width = 64,
 				Padding = new Thickness(4,4,4,4)
 			};
-
+			RenderOptions.SetBitmapScalingMode(newBtn, BitmapScalingMode.Fant);
 			newBtn.Click += ShortcutClicked;
 			DockPanel.Width += newBtn.Width;
 			DockPanel.Children.Add(newBtn);
