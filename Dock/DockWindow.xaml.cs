@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Dock
 {
@@ -20,6 +21,20 @@ namespace Dock
 			Top = 0;
 
 			base.OnInitialized(e);
+		}
+
+		protected override void OnMouseEnter(MouseEventArgs e)
+		{
+			Top = 0;
+
+			base.OnMouseEnter(e);
+		}
+
+		protected override void OnMouseLeave(MouseEventArgs e)
+		{
+			Top = -64;
+
+			base.OnMouseLeave(e);
 		}
 	}
 }
