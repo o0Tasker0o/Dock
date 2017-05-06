@@ -98,5 +98,10 @@ namespace Dock
 		{
 			System.Diagnostics.Process.Start(((Button) sender).CommandParameter.ToString());
 		}
+
+		private void ExitMenuClick(object sender, RoutedEventArgs e)
+		{
+			Application.Current.Shutdown();
+		}
 	}
 }

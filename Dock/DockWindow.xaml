@@ -25,6 +25,11 @@
 		</Style>
 	</Window.Resources>
 	<Grid Background="Transparent">
+		<Grid.ContextMenu>
+			<ContextMenu>
+				<MenuItem Header="_Exit" Click="ExitMenuClick"/>
+			</ContextMenu>
+		</Grid.ContextMenu>
 		<StackPanel x:Name="DockPanel" Orientation="Horizontal" Width="0" Background="Transparent"></StackPanel>
 	</Grid>
 </Window>
