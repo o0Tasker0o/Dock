@@ -18,7 +18,7 @@ namespace Dock
 		{
 			var screenWidth = SystemParameters.PrimaryScreenWidth;
 			Left = (screenWidth / 2) - (Width / 2);
-			Top = 0;
+			Top = -64;
 
 			base.OnInitialized(e);
 		}
