@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using Brushes = System.Windows.Media.Brushes;
 
 namespace Dock
@@ -43,7 +44,14 @@ namespace Dock
 				Background = Brushes.Transparent,
 				Content = new Image
 				{
-					Source = icon ?? Icon
+					Source = icon ?? Icon,
+					Effect = new DropShadowEffect
+					{
+						Color = Colors.White,
+						BlurRadius = 10.0,
+						Opacity = 0.0,
+						ShadowDepth = 0.0
+					}
 				},
 				CommandParameter = shortcut,
 				Width = 64,
@@ -51,8 +59,20 @@ namespace Dock
 			};
 			RenderOptions.SetBitmapScalingMode(newBtn, BitmapScalingMode.Fant);
 			newBtn.Click += ShortcutClicked;
+			newBtn.MouseEnter += ButtonMouseEnter;
+			newBtn.MouseLeave += ButtonMouseLeave;
 			DockPanel.Width += newBtn.Width;
 			DockPanel.Children.Add(newBtn);
+		}
+
+		private void ButtonMouseLeave(object sender, MouseEventArgs e)
+		{
+			((DropShadowEffect) ((Image) ((Button) sender).Content).Effect).Opacity = 0.0;
+		}
+
+		private void ButtonMouseEnter(object sender, MouseEventArgs e)
+		{
+			((DropShadowEffect)((Image)((Button)sender).Content).Effect).Opacity = 0.2;
 		}
 
 		protected override void OnMouseEnter(MouseEventArgs e)
