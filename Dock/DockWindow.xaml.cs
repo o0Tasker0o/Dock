@@ -36,5 +36,12 @@ namespace Dock
 
 			base.OnMouseLeave(e);
 		}
+
+		protected override void OnDeactivated(EventArgs e)
+		{
+			Topmost = true;
+
+			base.OnDeactivated(e);
+		}
 	}
 }
