@@ -1,7 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace Dock
 {
@@ -17,8 +20,7 @@ namespace Dock
 
 		protected override void OnInitialized(EventArgs e)
 		{
-			AddButton("Chrome",
-			          @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe");
+			AddButton(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe");
 
 			Width = DockPanel.Width;
 
@@ -29,11 +31,37 @@ namespace Dock
 			base.OnInitialized(e);
 		}
 
-		private void AddButton(string text, string shortcut)
+		private void AddButton(string shortcut)
 		{
+			BitmapFrame shortcutImage = null;
+
+			try
+			{
+				var icon = System.Drawing.Icon.ExtractAssociatedIcon(shortcut);
+
+				if (icon != null)
+				{
+					using (var bmp = icon.ToBitmap())
+					{
+						var stream = new MemoryStream();
+						bmp.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+						shortcutImage = BitmapFrame.Create(stream);
+					}
+				}
+			}
+			catch (FileNotFoundException)
+			{
+
+			}
+
 			var newBtn = new Button
 			{
-				Content = text,
+				Style = FindResource("NoChromeButton") as Style,
+				Background = Brushes.Transparent,
+				Content = new Image
+				{
+					Source = shortcutImage
+				},
 				CommandParameter = shortcut,
 				Width = 64
 			};

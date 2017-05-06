@@ -5,7 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="DockWindow" Height="65" Width="64" AllowsTransparency="True" Background="#22CCDDFF" WindowStyle="None" WindowStartupLocation="Manual">
-	<Grid>
-		<StackPanel x:Name="DockPanel" Orientation="Horizontal" Width="0"></StackPanel>
+	<Window.Resources>
+		<Style x:Key="NoChromeButton" TargetType="{x:Type Button}">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="1"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<Grid x:Name="Chrome" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+							<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+						</Grid>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</Window.Resources>
+	<Grid Background="Transparent">
+		<StackPanel x:Name="DockPanel" Orientation="Horizontal" Width="0" Background="Transparent"></StackPanel>
 	</Grid>
 </Window>
