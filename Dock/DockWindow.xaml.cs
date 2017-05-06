@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Dock
@@ -16,11 +17,30 @@ namespace Dock
 
 		protected override void OnInitialized(EventArgs e)
 		{
+			AddButton("Chrome",
+			          @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe");
+
+			Width = DockPanel.Width;
+
 			var screenWidth = SystemParameters.PrimaryScreenWidth;
 			Left = (screenWidth / 2) - (Width / 2);
 			Top = -64;
 
 			base.OnInitialized(e);
+		}
+
+		private void AddButton(string text, string shortcut)
+		{
+			var newBtn = new Button
+			{
+				Content = text,
+				CommandParameter = shortcut,
+				Width = 64
+			};
+
+			newBtn.Click += ShortcutClicked;
+			DockPanel.Width += newBtn.Width;
+			DockPanel.Children.Add(newBtn);
 		}
 
 		protected override void OnMouseEnter(MouseEventArgs e)
@@ -44,9 +64,9 @@ namespace Dock
 			base.OnDeactivated(e);
 		}
 
-		private void ShortcutClicked(object sender, RoutedEventArgs e)
+		private static void ShortcutClicked(object sender, RoutedEventArgs e)
 		{
-			System.Diagnostics.Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe");
+			System.Diagnostics.Process.Start(((Button) sender).CommandParameter.ToString());
 		}
 	}
 }

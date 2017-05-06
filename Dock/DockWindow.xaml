@@ -6,6 +6,6 @@
         mc:Ignorable="d"
         Title="DockWindow" Height="65" Width="64" AllowsTransparency="True" Background="#22CCDDFF" WindowStyle="None" WindowStartupLocation="Manual">
 	<Grid>
-		<Button x:Name="ShortcutButton" Click="ShortcutClicked">Chrome</Button>
+		<StackPanel x:Name="DockPanel" Orientation="Horizontal" Width="0"></StackPanel>
 	</Grid>
 </Window>
