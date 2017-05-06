@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
+using System.Windows.Media.Imaging;
 using Brushes = System.Windows.Media.Brushes;
 
 namespace Dock
@@ -42,8 +43,27 @@ namespace Dock
 
 			foreach (var shortcut in fileContents.Split(new [] { Environment.NewLine }, StringSplitOptions.None))
 			{
-				AddButton(shortcut);
+				if (shortcut == "|")
+				{
+					AddSeparator();
+				}
+				else
+				{
+					AddButton(shortcut);
+				}
 			}
+		}
+
+		private void AddSeparator()
+		{
+			var separator = new Image
+			{
+				Width = 20,
+				Source = new BitmapImage(new Uri("/Images/Separator.png", UriKind.Relative))
+			};
+
+			DockPanel.Width += separator.Width;
+			DockPanel.Children.Add(separator);
 		}
 
 		private void AddButton(string shortcut)
