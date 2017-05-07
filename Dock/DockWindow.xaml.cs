@@ -20,7 +20,10 @@ namespace Dock
 
 		protected override void OnInitialized(EventArgs e)
 		{
+			AddButton("::{20d04fe0-3aea-1069-a2d8-08002b30309d}");
+			AddButton("C:");
 			AddButton(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe");
+			AddButton(@"C:\Program Files (x86)\Mozilla Firefox\firefox.exe");
 
 			Width = DockPanel.Width;
 
