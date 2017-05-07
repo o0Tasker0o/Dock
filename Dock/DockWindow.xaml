@@ -24,7 +24,7 @@
 			</Setter>
 		</Style>
 	</Window.Resources>
-	<Border Background="#22CCDDFF" CornerRadius="5,5,5,5" Padding="10, 0, 10, 0">
+	<Border Background="#22CCDDFF" CornerRadius="5,5,5,5" Padding="10, 0, 10, 0" BorderThickness="1,1,1,1" BorderBrush="#66aaccff">
 		<Grid Background="Transparent">
 			<Grid.ContextMenu>
 				<ContextMenu>
