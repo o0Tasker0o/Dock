@@ -18,6 +18,8 @@ namespace Dock
 	{
 		private readonly TimeSpan _swellDuration = TimeSpan.FromMilliseconds(100);
 		private readonly TimeSpan _popupDuration = TimeSpan.FromMilliseconds(100);
+		private readonly Thickness _defaultPadding = new Thickness(6, 6, 6, 6);
+		private readonly Thickness _mouseOverPadding = new Thickness(3, 3, 3, 3);
 
 		public DockWindow()
 		{
@@ -28,7 +30,7 @@ namespace Dock
 		{
 			AddShortcuts();
 
-			Width = DockPanel.Width;
+			Width = DockPanel.Width + 20;
 
 			var screenWidth = SystemParameters.PrimaryScreenWidth;
 			Left = (screenWidth / 2) - (Width / 2);
@@ -87,7 +89,7 @@ namespace Dock
 				},
 				CommandParameter = shortcut,
 				Width = 64,
-				Padding = new Thickness(4,4,4,4)
+				Padding = _defaultPadding
 			};
 			RenderOptions.SetBitmapScalingMode(newBtn, BitmapScalingMode.Fant);
 			newBtn.Click += ShortcutClicked;
@@ -99,7 +101,7 @@ namespace Dock
 
 		private void ButtonMouseLeave(object sender, MouseEventArgs e)
 		{
-			var swellAnimation = new ThicknessAnimation(new Thickness(0, 0, 0, 0), new Thickness(4, 4, 4, 4), _swellDuration);
+			var swellAnimation = new ThicknessAnimation(_mouseOverPadding, _defaultPadding, _swellDuration);
 			var button = (Button) sender;
 			button.BeginAnimation(PaddingProperty, swellAnimation);
 			((DropShadowEffect) ((Image) button.Content).Effect).Opacity = 0.0;
@@ -107,7 +109,7 @@ namespace Dock
 
 		private void ButtonMouseEnter(object sender, MouseEventArgs e)
 		{
-			var swellAnimation = new ThicknessAnimation(new Thickness(4, 4, 4, 4), new Thickness(0, 0, 0, 0), _swellDuration);
+			var swellAnimation = new ThicknessAnimation(_defaultPadding, _mouseOverPadding, _swellDuration);
 			var button = (Button) sender;
 			button.BeginAnimation(PaddingProperty, swellAnimation);
 			((DropShadowEffect) ((Image) button.Content).Effect).Opacity = 0.2;
