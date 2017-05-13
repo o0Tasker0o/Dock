@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -70,6 +71,12 @@ namespace Dock
 		{
 			var icon = IconGetter.GetLargeIcon(shortcut);
 
+			var toolTip = Path.GetFileNameWithoutExtension(shortcut);
+			if (string.IsNullOrEmpty(toolTip))
+			{
+				toolTip = shortcut;
+			}
+
 			var newBtn = new Button
 			{
 				Style = FindResource("NoChromeButton") as Style,
@@ -87,9 +94,22 @@ namespace Dock
 					Width = 64,
 					Height = 64
 				},
+				ToolTip = new ToolTip
+				{
+					Content = toolTip,
+					IsOpen = false,
+					Background = Brushes.Transparent,
+					BorderBrush = Brushes.Transparent,
+					Placement = PlacementMode.Center,
+					HorizontalOffset = 0,
+					VerticalOffset = 50,
+					Foreground = Brushes.Black,
+					FontSize = 30.0,
+				},
 				CommandParameter = shortcut,
 				Width = 72
 			};
+
 			RenderOptions.SetBitmapScalingMode(newBtn, BitmapScalingMode.Fant);
 			newBtn.Click += ShortcutClicked;
 			newBtn.MouseEnter += ButtonMouseEnter;
@@ -102,12 +122,16 @@ namespace Dock
 		{
 			var button = (Button) sender;
 			((DropShadowEffect) ((Image) button.Content).Effect).Opacity = 0.0;
+
+			((ToolTip) button.ToolTip).IsOpen = false;
 		}
 
 		private static void ButtonMouseEnter(object sender, MouseEventArgs e)
 		{
 			var button = (Button) sender;
 			((DropShadowEffect) ((Image) button.Content).Effect).Opacity = 0.2;
+
+			((ToolTip) button.ToolTip).IsOpen = true;
 		}
 
 		protected override void OnMouseEnter(MouseEventArgs e)
