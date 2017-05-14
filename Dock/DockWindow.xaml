@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="DockWindow" Height="73" Width="64" AllowsTransparency="True" Background="Transparent" WindowStyle="None" WindowStartupLocation="Manual" Icon="Images/placeholder.png" ShowInTaskbar="false" UseLayoutRounding="True" SnapsToDevicePixels="True">
+        Title="DockWindow" Height="73" Width="64" AllowsTransparency="True" Background="Transparent" WindowStyle="None" WindowStartupLocation="Manual" Icon="Images/Windows.png" ShowInTaskbar="false" UseLayoutRounding="True" SnapsToDevicePixels="True">
 	<Window.Resources>
 		<Style x:Key="NoChromeButton" TargetType="{x:Type Button}">
 			<Setter Property="Background" Value="Transparent"/>
