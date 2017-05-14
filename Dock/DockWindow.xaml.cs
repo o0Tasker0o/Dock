@@ -71,12 +71,6 @@ namespace Dock
 		{
 			var icon = IconGetter.GetLargeIcon(shortcut);
 
-			var toolTip = Path.GetFileNameWithoutExtension(shortcut);
-			if (string.IsNullOrEmpty(toolTip))
-			{
-				toolTip = shortcut;
-			}
-
 			var newBtn = new Button
 			{
 				Style = FindResource("NoChromeButton") as Style,
@@ -96,7 +90,7 @@ namespace Dock
 				},
 				ToolTip = new ToolTip
 				{
-					Content = toolTip,
+					Content = ShortcutParser.GetName(shortcut),
 					IsOpen = false,
 					Background = Brushes.Transparent,
 					BorderBrush = Brushes.Transparent,
