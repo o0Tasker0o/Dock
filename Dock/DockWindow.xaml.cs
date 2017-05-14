@@ -97,8 +97,15 @@ namespace Dock
 					Placement = PlacementMode.Center,
 					HorizontalOffset = 0,
 					VerticalOffset = 50,
-					Foreground = Brushes.Black,
+					Foreground = Brushes.White,
 					FontSize = 30.0,
+					Effect = new DropShadowEffect
+					{
+						Color = Colors.Black,
+						BlurRadius = 4.0,
+						Opacity = 1.0,
+						ShadowDepth = 0.0
+					}
 				},
 				CommandParameter = shortcut,
 				Width = 72
