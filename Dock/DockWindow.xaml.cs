@@ -119,24 +119,16 @@ namespace Dock
 			DockPanel.Children.Add(newBtn);
 		}
 
-		private void ButtonMouseLeave(object sender, MouseEventArgs e)
+		private static void ButtonMouseLeave(object sender, MouseEventArgs e)
 		{
 			var button = (Button) sender;
 			((DropShadowEffect) ((Image) button.Content).Effect).Opacity = 0.0;
-
-			Dispatcher.BeginInvoke(new Action(() => {
-				((ToolTip) button.ToolTip).IsOpen = false;
-			}));
 		}
 
-		private void ButtonMouseEnter(object sender, MouseEventArgs e)
+		private static void ButtonMouseEnter(object sender, MouseEventArgs e)
 		{
 			var button = (Button) sender;
 			((DropShadowEffect) ((Image) button.Content).Effect).Opacity = 0.2;
-
-			Dispatcher.BeginInvoke(new Action(() => {
-				((ToolTip) button.ToolTip).IsOpen = true;
-			}));
 		}
 
 		protected override void OnMouseEnter(MouseEventArgs e)
@@ -149,8 +141,8 @@ namespace Dock
 
 		protected override void OnMouseLeave(MouseEventArgs e)
 		{
-			var popupAnimation = new DoubleAnimation(0, HiddenPosition, _popupDuration);
-			BeginAnimation(TopProperty, popupAnimation);
+			var collapseAnimation = new DoubleAnimation(0, HiddenPosition, _popupDuration);
+			BeginAnimation(TopProperty, collapseAnimation);
 
 			base.OnMouseLeave(e);
 		}
