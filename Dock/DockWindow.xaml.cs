@@ -136,6 +136,9 @@ namespace Dock
 			var popupAnimation = new DoubleAnimation(HiddenPosition, 0, _popupDuration);
 			BeginAnimation(TopProperty, popupAnimation);
 
+			var borderAnimation = new ColorAnimation(Color.FromArgb(102, 170,204,255), _popupDuration);
+			((Border) Content).BorderBrush.BeginAnimation(SolidColorBrush.ColorProperty, borderAnimation);
+
 			base.OnMouseEnter(e);
 		}
 
@@ -143,6 +146,9 @@ namespace Dock
 		{
 			var collapseAnimation = new DoubleAnimation(0, HiddenPosition, _popupDuration);
 			BeginAnimation(TopProperty, collapseAnimation);
+
+			var borderAnimation = new ColorAnimation(Color.FromArgb(1,1,1,1), _popupDuration);
+			((Border)Content).BorderBrush.BeginAnimation(SolidColorBrush.ColorProperty, borderAnimation);
 
 			base.OnMouseLeave(e);
 		}
