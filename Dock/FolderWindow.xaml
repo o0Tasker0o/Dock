@@ -1,0 +1,13 @@
+﻿<Window x:Class="Dock.FolderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="DockWindow" Height="64" Width="64" AllowsTransparency="True" Background="Transparent" WindowStyle="None" WindowStartupLocation="Manual" Icon="Images/Windows.png" ShowInTaskbar="false" UseLayoutRounding="True" SnapsToDevicePixels="True">
+	<Border Background="#22CCDDFF" CornerRadius="5,5,5,5" Padding="10, 0, 10, 0">
+		<Grid x:Name="FolderGrid" Background="Transparent" Width="0">
+			<!--<StackPanel x:Name="FolderDockPanel" Orientation="Horizontal" Width="0" Background="Transparent"></StackPanel>-->
+		</Grid>
+	</Border>
+</Window>
