@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -19,6 +20,7 @@ namespace Dock
 	{
 		private readonly TimeSpan _popupDuration = TimeSpan.FromMilliseconds(100);
 		private const int HiddenPosition = -72;
+		private FolderWindow _displayedWindow = null;
 
 		public DockWindow()
 		{
@@ -69,12 +71,15 @@ namespace Dock
 
 		private void AddButton(string shortcut)
 		{
+			var isSubPanel = shortcut.EndsWith("#subpanel#");
+			shortcut = shortcut.Replace("#subpanel#", "");
+
 			var icon = IconGetter.GetLargeIcon(shortcut);
 
-			var newBtn = new Button
+			var newBtn = new DockButton
 			{
-				Style = FindResource("NoChromeButton") as Style,
-				Background = Brushes.Transparent,
+				FolderWindow = isSubPanel ? new FolderWindow(shortcut) : null,
+				IsSubPanel = isSubPanel,
 				Content = new Image
 				{
 					Source = icon ?? Icon,
@@ -107,8 +112,7 @@ namespace Dock
 						ShadowDepth = 0.0
 					}
 				},
-				CommandParameter = shortcut,
-				Width = 72
+				CommandParameter = shortcut
 			};
 
 			RenderOptions.SetBitmapScalingMode(newBtn, BitmapScalingMode.Fant);
@@ -121,13 +125,13 @@ namespace Dock
 
 		private static void ButtonMouseLeave(object sender, MouseEventArgs e)
 		{
-			var button = (Button) sender;
+			var button = (DockButton) sender;
 			((DropShadowEffect) ((Image) button.Content).Effect).Opacity = 0.0;
 		}
 
 		private static void ButtonMouseEnter(object sender, MouseEventArgs e)
 		{
-			var button = (Button) sender;
+			var button = (DockButton) sender;
 			((DropShadowEffect) ((Image) button.Content).Effect).Opacity = 0.2;
 		}
 
@@ -160,15 +164,28 @@ namespace Dock
 			base.OnDeactivated(e);
 		}
 
-		private static void ShortcutClicked(object sender, RoutedEventArgs e)
+		private void ShortcutClicked(object sender, RoutedEventArgs e)
 		{
-			try
+			var button = (DockButton) sender;
+			var shortcut = button.CommandParameter.ToString();
+
+			_displayedWindow?.Hide();
+
+			if (button.IsSubPanel)
 			{
-				System.Diagnostics.Process.Start(((Button) sender).CommandParameter.ToString());
+				_displayedWindow = button.FolderWindow;
+				button.FolderWindow.Show();
 			}
-			catch (Exception ex)
+			else
 			{
-				Console.WriteLine(ex);
+				try
+				{
+					System.Diagnostics.Process.Start(shortcut);
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex);
+				}
 			}
 		}
 
