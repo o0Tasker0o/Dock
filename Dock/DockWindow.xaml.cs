@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -9,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
+using Microsoft.Win32;
 using Brushes = System.Windows.Media.Brushes;
 
 namespace Dock
@@ -25,6 +25,17 @@ namespace Dock
 		public DockWindow()
 		{
 			InitializeComponent();
+
+			SystemEvents.SessionSwitch += SessionSwitch;
+		}
+
+		private void SessionSwitch(object sender, SessionSwitchEventArgs e)
+		{
+			if (e.Reason == SessionSwitchReason.SessionUnlock &&
+			    Mouse.DirectlyOver == null)
+			{
+				DockHide();
+			}
 		}
 
 		protected override void OnInitialized(EventArgs e)
@@ -137,6 +148,7 @@ namespace Dock
 
 		protected override void OnMouseEnter(MouseEventArgs e)
 		{
+
 			var popupAnimation = new DoubleAnimation(HiddenPosition, 0, _popupDuration);
 			BeginAnimation(TopProperty, popupAnimation);
 
@@ -148,13 +160,17 @@ namespace Dock
 
 		protected override void OnMouseLeave(MouseEventArgs e)
 		{
+			DockHide();
+			base.OnMouseLeave(e);
+		}
+
+		private void DockHide()
+		{
 			var collapseAnimation = new DoubleAnimation(0, HiddenPosition, _popupDuration);
 			BeginAnimation(TopProperty, collapseAnimation);
 
 			var borderAnimation = new ColorAnimation(Color.FromArgb(1,1,1,1), _popupDuration);
 			((Border)Content).BorderBrush.BeginAnimation(SolidColorBrush.ColorProperty, borderAnimation);
-
-			base.OnMouseLeave(e);
 		}
 
 		protected override void OnDeactivated(EventArgs e)
