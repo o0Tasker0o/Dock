@@ -162,7 +162,14 @@ namespace Dock
 
 		private static void ShortcutClicked(object sender, RoutedEventArgs e)
 		{
-			System.Diagnostics.Process.Start(((Button) sender).CommandParameter.ToString());
+			try
+			{
+				System.Diagnostics.Process.Start(((Button) sender).CommandParameter.ToString());
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
 		}
 
 		private void ExitMenuClick(object sender, RoutedEventArgs e)
